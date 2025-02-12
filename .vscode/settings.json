@@ -1,0 +1,16 @@
+{
+    // markdownプレビュー時のスタイル（参照先）を設定
+    "markdown.styles": [
+      ".vscode/markdown-style.css"
+    ],
+
+    // VS Code側で非表示にするファイルを設定
+    "files.exclude": {
+    // "**/.git": true,
+    // "**/.gitattributes": true,
+    // "**/.htmlhintrc": true,
+    // "**/LICENSE":true,
+    // "README.md":true
+    },
+
+}

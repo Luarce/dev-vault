@@ -1,0 +1,33 @@
+body,
+.markdown-body {
+    background-color: white;
+    color: black;
+}
+
+/* コードブロックの背景色だけ例外設定 */
+.markdown-body pre,
+.markdown-body code {
+    background-color: #1C1E23;
+}
+
+.markdown-body h3 {
+    font-size: 22px;
+}
+
+.markdown-body h4 {
+    font-size: 20px;
+}
+
+.markdown-body h5 {
+    font-size: 18px;
+}
+
+img {
+    border: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+h3,
+h5 {
+    padding-bottom: 0.4em !important;
+    border-bottom: solid 1px gray !important;
+}
