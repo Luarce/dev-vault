@@ -1,0 +1,6 @@
+<Configuration>
+  <Locale>ja-JP</Locale>
+  <LogonCommand>
+    <Command>chcp 65001</Command>  <!-- UTF-8 を強制適用 -->
+  </LogonCommand>
+</Configuration>
