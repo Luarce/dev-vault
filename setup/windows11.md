@@ -37,6 +37,8 @@ Windows11初期設定の個人的メモ
 ## タスクバーピン止め
 - 設定
 - タスクマネージャー
+- ペイント
+- 電卓
 - サクラエディタ
 - VSCode
 - GitHub（PWA）
@@ -44,7 +46,6 @@ Windows11初期設定の個人的メモ
 - GoogleKeep（PWA）
 - Googleカレンダー（PWA）
 - Gmail（PWA）
-- Teams
 - GPT（PWA）
 - ブラウザ
 - エクスプローラー
