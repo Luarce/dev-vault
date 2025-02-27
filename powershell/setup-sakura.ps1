@@ -1,12 +1,15 @@
 # 管理者権限で実行されているか確認
 if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) {
-    # 管理者権限で再実行
+    Write-Output "管理者権限で再実行します。"
     Start-Process powershell.exe "-File `"$PSCommandPath`"" -Verb RunAs
     exit
 }
 
+Write-Output "管理者権限で実行されています。"
+
 # Set-ExecutionPolicyを変更（スクリプト実行を許可）
 Set-ExecutionPolicy Bypass -Scope Process -Force
+Write-Output "実行ポリシーを変更しました。"
 
 # Windows11
 # 設定関連：レジストリキーの変更・追加
@@ -14,27 +17,32 @@ Set-ExecutionPolicy Bypass -Scope Process -Force
 # タスクバーを左揃えに設定する
 if (Test-Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced") {
     Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "TaskbarAl" -Value 0
+    Write-Output "タスクバーを左揃えに設定しました。"
 }
 
 # タスクバーの検索を非表示にする
 if (Test-Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Search") {
     Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Search" -Name "SearchboxTaskbarMode" -Value 0
+    Write-Output "タスクバーの検索を非表示にしました。"
 }
 
 # タスクビューをオフにする
 if (Test-Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced") {
     Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "ShowTaskViewButton" -Value 0
+    Write-Output "タスクビューをオフにしました。"
 }
 
 # ウィジェットをオフにする
 # windows sandbox環境ではそもそもウィジェットが無い
 if (Test-Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced") {
     Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "TaskbarDa" -Value 0
+    Write-Output "ウィジェットをオフにしました。"
 }
 
 # 右クリックメニューをWindows10のスタイルに戻す
 # レジストリキーが追加されていないことを確認
 if (-not (Test-Path "HKCU:\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}")) {
+    Write-Output "右クリックメニューをWindows10のスタイルに戻します。"
 
     # レジストリキーを追加
     New-Item -Path "HKCU:\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}" -Force | Out-Null
@@ -45,17 +53,15 @@ if (-not (Test-Path "HKCU:\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c90
     # レジストリキーの中に (Default) を追加
     Set-ItemProperty -Path "HKCU:\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32" -Name "(Default)" -Value ""
 
-    Write-Output "右クリックメニューをwindows10スタイルに戻しました。"
-
-}
-else {
-    Write-Output "右クリックメニューは既にwindows10スタイルに戻っています。"
+    Write-Output "右クリックメニューをWindows10スタイルに戻しました。"
+} else {
+    Write-Output "右クリックメニューは既にWindows10スタイルに戻っています。"
 }
 
 # エクスプローラーを再起動して変更を反映
 Stop-Process -Name "explorer" -Force
 Start-Process "explorer"
-
+Write-Output "エクスプローラーを再起動しました。"
 
 # サクラエディタのインストール
 # インストーラー zip の URL（Installer 版）
